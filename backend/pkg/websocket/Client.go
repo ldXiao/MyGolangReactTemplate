@@ -3,8 +3,8 @@ package websocket
 import (
     "fmt"
     "log"
-	"sync"
-	"github.com/gorilla/websocket"
+
+    "github.com/gorilla/websocket"
 )
 
 type Client struct {
