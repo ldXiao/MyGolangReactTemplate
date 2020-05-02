@@ -5,6 +5,7 @@ import { connect, sendMsg } from "./api";
 // Import our new component from it's relative path
 import Header from './components/Header/Header';
 import ChatHistory from './components/ChatHistory/ChatHistory';
+import ChatInput from './components/ChatInput/ChatInput';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -14,20 +15,22 @@ class App extends Component {
     connect();
   }
 
-  send() {
-    console.log("hello");
-    sendMsg("hello");
+  send(event) {
+    if(event.keyCode === 13) {
+      sendMsg(event.target.value);
+      event.target.value = "";
+    }
   }
 
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <ChatHistory chatHistory={this.state.chatHistory} />
-        <button onClick={this.send}>Hit</button>
-      </div>
-    );
-  }
+render() {
+  return (
+    <div className="App">
+      <Header />
+      <ChatHistory chatHistory={this.state.chatHistory} />
+      <ChatInput send={this.send} />
+    </div>
+  );
+}
 
   componentDidMount() {
     connect((msg) => {
